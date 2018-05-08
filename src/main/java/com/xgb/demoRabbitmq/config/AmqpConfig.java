@@ -172,7 +172,7 @@ public class AmqpConfig {
     }
     
     
-  //正常消费掉后通知mq服务器移除此条mq
+    //正常消费掉后通知mq服务器移除此条mq
   	private void basicACK(Message message,Channel channel){
   		try{
   			channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
