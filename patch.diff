@@ -1,0 +1,2267 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..82eca33
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,25 @@
++/target/
++!.mvn/wrapper/maven-wrapper.jar
++
++### STS ###
++.apt_generated
++.classpath
++.factorypath
++.project
++.settings
++.springBeans
++.sts4-cache
++
++### IntelliJ IDEA ###
++.idea
++*.iws
++*.iml
++*.ipr
++
++### NetBeans ###
++/nbproject/private/
++/build/
++/nbbuild/
++/dist/
++/nbdist/
++/.nb-gradle/
+\ No newline at end of file
+diff --git a/.mvn/wrapper/maven-wrapper.jar b/.mvn/wrapper/maven-wrapper.jar
+new file mode 100644
+index 0000000..9cc84ea
+Binary files /dev/null and b/.mvn/wrapper/maven-wrapper.jar differ
+diff --git a/.mvn/wrapper/maven-wrapper.properties b/.mvn/wrapper/maven-wrapper.properties
+new file mode 100644
+index 0000000..b573bb5
+--- /dev/null
++++ b/.mvn/wrapper/maven-wrapper.properties
+@@ -0,0 +1 @@
++distributionUrl=https://repo1.maven.org/maven2/org/apache/maven/apache-maven/3.5.3/apache-maven-3.5.3-bin.zip
+diff --git a/mvnw b/mvnw
+new file mode 100644
+index 0000000..5bf251c
+--- /dev/null
++++ b/mvnw
+@@ -0,0 +1,225 @@
++#!/bin/sh
++# ----------------------------------------------------------------------------
++# Licensed to the Apache Software Foundation (ASF) under one
++# or more contributor license agreements.  See the NOTICE file
++# distributed with this work for additional information
++# regarding copyright ownership.  The ASF licenses this file
++# to you under the Apache License, Version 2.0 (the
++# "License"); you may not use this file except in compliance
++# with the License.  You may obtain a copy of the License at
++#
++#    http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing,
++# software distributed under the License is distributed on an
++# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++# KIND, either express or implied.  See the License for the
++# specific language governing permissions and limitations
++# under the License.
++# ----------------------------------------------------------------------------
++
++# ----------------------------------------------------------------------------
++# Maven2 Start Up Batch script
++#
++# Required ENV vars:
++# ------------------
++#   JAVA_HOME - location of a JDK home dir
++#
++# Optional ENV vars
++# -----------------
++#   M2_HOME - location of maven2's installed home dir
++#   MAVEN_OPTS - parameters passed to the Java VM when running Maven
++#     e.g. to debug Maven itself, use
++#       set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
++#   MAVEN_SKIP_RC - flag to disable loading of mavenrc files
++# ----------------------------------------------------------------------------
++
++if [ -z "$MAVEN_SKIP_RC" ] ; then
++
++  if [ -f /etc/mavenrc ] ; then
++    . /etc/mavenrc
++  fi
++
++  if [ -f "$HOME/.mavenrc" ] ; then
++    . "$HOME/.mavenrc"
++  fi
++
++fi
++
++# OS specific support.  $var _must_ be set to either true or false.
++cygwin=false;
++darwin=false;
++mingw=false
++case "`uname`" in
++  CYGWIN*) cygwin=true ;;
++  MINGW*) mingw=true;;
++  Darwin*) darwin=true
++    # Use /usr/libexec/java_home if available, otherwise fall back to /Library/Java/Home
++    # See https://developer.apple.com/library/mac/qa/qa1170/_index.html
++    if [ -z "$JAVA_HOME" ]; then
++      if [ -x "/usr/libexec/java_home" ]; then
++        export JAVA_HOME="`/usr/libexec/java_home`"
++      else
++        export JAVA_HOME="/Library/Java/Home"
++      fi
++    fi
++    ;;
++esac
++
++if [ -z "$JAVA_HOME" ] ; then
++  if [ -r /etc/gentoo-release ] ; then
++    JAVA_HOME=`java-config --jre-home`
++  fi
++fi
++
++if [ -z "$M2_HOME" ] ; then
++  ## resolve links - $0 may be a link to maven's home
++  PRG="$0"
++
++  # need this for relative symlinks
++  while [ -h "$PRG" ] ; do
++    ls=`ls -ld "$PRG"`
++    link=`expr "$ls" : '.*-> \(.*\)$'`
++    if expr "$link" : '/.*' > /dev/null; then
++      PRG="$link"
++    else
++      PRG="`dirname "$PRG"`/$link"
++    fi
++  done
++
++  saveddir=`pwd`
++
++  M2_HOME=`dirname "$PRG"`/..
++
++  # make it fully qualified
++  M2_HOME=`cd "$M2_HOME" && pwd`
++
++  cd "$saveddir"
++  # echo Using m2 at $M2_HOME
++fi
++
++# For Cygwin, ensure paths are in UNIX format before anything is touched
++if $cygwin ; then
++  [ -n "$M2_HOME" ] &&
++    M2_HOME=`cygpath --unix "$M2_HOME"`
++  [ -n "$JAVA_HOME" ] &&
++    JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
++  [ -n "$CLASSPATH" ] &&
++    CLASSPATH=`cygpath --path --unix "$CLASSPATH"`
++fi
++
++# For Migwn, ensure paths are in UNIX format before anything is touched
++if $mingw ; then
++  [ -n "$M2_HOME" ] &&
++    M2_HOME="`(cd "$M2_HOME"; pwd)`"
++  [ -n "$JAVA_HOME" ] &&
++    JAVA_HOME="`(cd "$JAVA_HOME"; pwd)`"
++  # TODO classpath?
++fi
++
++if [ -z "$JAVA_HOME" ]; then
++  javaExecutable="`which javac`"
++  if [ -n "$javaExecutable" ] && ! [ "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "no" ]; then
++    # readlink(1) is not available as standard on Solaris 10.
++    readLink=`which readlink`
++    if [ ! `expr "$readLink" : '\([^ ]*\)'` = "no" ]; then
++      if $darwin ; then
++        javaHome="`dirname \"$javaExecutable\"`"
++        javaExecutable="`cd \"$javaHome\" && pwd -P`/javac"
++      else
++        javaExecutable="`readlink -f \"$javaExecutable\"`"
++      fi
++      javaHome="`dirname \"$javaExecutable\"`"
++      javaHome=`expr "$javaHome" : '\(.*\)/bin'`
++      JAVA_HOME="$javaHome"
++      export JAVA_HOME
++    fi
++  fi
++fi
++
++if [ -z "$JAVACMD" ] ; then
++  if [ -n "$JAVA_HOME"  ] ; then
++    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
++      # IBM's JDK on AIX uses strange locations for the executables
++      JAVACMD="$JAVA_HOME/jre/sh/java"
++    else
++      JAVACMD="$JAVA_HOME/bin/java"
++    fi
++  else
++    JAVACMD="`which java`"
++  fi
++fi
++
++if [ ! -x "$JAVACMD" ] ; then
++  echo "Error: JAVA_HOME is not defined correctly." >&2
++  echo "  We cannot execute $JAVACMD" >&2
++  exit 1
++fi
++
++if [ -z "$JAVA_HOME" ] ; then
++  echo "Warning: JAVA_HOME environment variable is not set."
++fi
++
++CLASSWORLDS_LAUNCHER=org.codehaus.plexus.classworlds.launcher.Launcher
++
++# traverses directory structure from process work directory to filesystem root
++# first directory with .mvn subdirectory is considered project base directory
++find_maven_basedir() {
++
++  if [ -z "$1" ]
++  then
++    echo "Path not specified to find_maven_basedir"
++    return 1
++  fi
++
++  basedir="$1"
++  wdir="$1"
++  while [ "$wdir" != '/' ] ; do
++    if [ -d "$wdir"/.mvn ] ; then
++      basedir=$wdir
++      break
++    fi
++    # workaround for JBEAP-8937 (on Solaris 10/Sparc)
++    if [ -d "${wdir}" ]; then
++      wdir=`cd "$wdir/.."; pwd`
++    fi
++    # end of workaround
++  done
++  echo "${basedir}"
++}
++
++# concatenates all lines of a file
++concat_lines() {
++  if [ -f "$1" ]; then
++    echo "$(tr -s '\n' ' ' < "$1")"
++  fi
++}
++
++BASE_DIR=`find_maven_basedir "$(pwd)"`
++if [ -z "$BASE_DIR" ]; then
++  exit 1;
++fi
++
++export MAVEN_PROJECTBASEDIR=${MAVEN_BASEDIR:-"$BASE_DIR"}
++echo $MAVEN_PROJECTBASEDIR
++MAVEN_OPTS="$(concat_lines "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config") $MAVEN_OPTS"
++
++# For Cygwin, switch paths to Windows format before running java
++if $cygwin; then
++  [ -n "$M2_HOME" ] &&
++    M2_HOME=`cygpath --path --windows "$M2_HOME"`
++  [ -n "$JAVA_HOME" ] &&
++    JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`
++  [ -n "$CLASSPATH" ] &&
++    CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
++  [ -n "$MAVEN_PROJECTBASEDIR" ] &&
++    MAVEN_PROJECTBASEDIR=`cygpath --path --windows "$MAVEN_PROJECTBASEDIR"`
++fi
++
++WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
++
++exec "$JAVACMD" \
++  $MAVEN_OPTS \
++  -classpath "$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar" \
++  "-Dmaven.home=${M2_HOME}" "-Dmaven.multiModuleProjectDirectory=${MAVEN_PROJECTBASEDIR}" \
++  ${WRAPPER_LAUNCHER} $MAVEN_CONFIG "$@"
+diff --git a/mvnw.cmd b/mvnw.cmd
+new file mode 100644
+index 0000000..019bd74
+--- /dev/null
++++ b/mvnw.cmd
+@@ -0,0 +1,143 @@
++@REM ----------------------------------------------------------------------------
++@REM Licensed to the Apache Software Foundation (ASF) under one
++@REM or more contributor license agreements.  See the NOTICE file
++@REM distributed with this work for additional information
++@REM regarding copyright ownership.  The ASF licenses this file
++@REM to you under the Apache License, Version 2.0 (the
++@REM "License"); you may not use this file except in compliance
++@REM with the License.  You may obtain a copy of the License at
++@REM
++@REM    http://www.apache.org/licenses/LICENSE-2.0
++@REM
++@REM Unless required by applicable law or agreed to in writing,
++@REM software distributed under the License is distributed on an
++@REM "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++@REM KIND, either express or implied.  See the License for the
++@REM specific language governing permissions and limitations
++@REM under the License.
++@REM ----------------------------------------------------------------------------
++
++@REM ----------------------------------------------------------------------------
++@REM Maven2 Start Up Batch script
++@REM
++@REM Required ENV vars:
++@REM JAVA_HOME - location of a JDK home dir
++@REM
++@REM Optional ENV vars
++@REM M2_HOME - location of maven2's installed home dir
++@REM MAVEN_BATCH_ECHO - set to 'on' to enable the echoing of the batch commands
++@REM MAVEN_BATCH_PAUSE - set to 'on' to wait for a key stroke before ending
++@REM MAVEN_OPTS - parameters passed to the Java VM when running Maven
++@REM     e.g. to debug Maven itself, use
++@REM set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
++@REM MAVEN_SKIP_RC - flag to disable loading of mavenrc files
++@REM ----------------------------------------------------------------------------
++
++@REM Begin all REM lines with '@' in case MAVEN_BATCH_ECHO is 'on'
++@echo off
++@REM enable echoing my setting MAVEN_BATCH_ECHO to 'on'
++@if "%MAVEN_BATCH_ECHO%" == "on"  echo %MAVEN_BATCH_ECHO%
++
++@REM set %HOME% to equivalent of $HOME
++if "%HOME%" == "" (set "HOME=%HOMEDRIVE%%HOMEPATH%")
++
++@REM Execute a user defined script before this one
++if not "%MAVEN_SKIP_RC%" == "" goto skipRcPre
++@REM check for pre script, once with legacy .bat ending and once with .cmd ending
++if exist "%HOME%\mavenrc_pre.bat" call "%HOME%\mavenrc_pre.bat"
++if exist "%HOME%\mavenrc_pre.cmd" call "%HOME%\mavenrc_pre.cmd"
++:skipRcPre
++
++@setlocal
++
++set ERROR_CODE=0
++
++@REM To isolate internal variables from possible post scripts, we use another setlocal
++@setlocal
++
++@REM ==== START VALIDATION ====
++if not "%JAVA_HOME%" == "" goto OkJHome
++
++echo.
++echo Error: JAVA_HOME not found in your environment. >&2
++echo Please set the JAVA_HOME variable in your environment to match the >&2
++echo location of your Java installation. >&2
++echo.
++goto error
++
++:OkJHome
++if exist "%JAVA_HOME%\bin\java.exe" goto init
++
++echo.
++echo Error: JAVA_HOME is set to an invalid directory. >&2
++echo JAVA_HOME = "%JAVA_HOME%" >&2
++echo Please set the JAVA_HOME variable in your environment to match the >&2
++echo location of your Java installation. >&2
++echo.
++goto error
++
++@REM ==== END VALIDATION ====
++
++:init
++
++@REM Find the project base dir, i.e. the directory that contains the folder ".mvn".
++@REM Fallback to current working directory if not found.
++
++set MAVEN_PROJECTBASEDIR=%MAVEN_BASEDIR%
++IF NOT "%MAVEN_PROJECTBASEDIR%"=="" goto endDetectBaseDir
++
++set EXEC_DIR=%CD%
++set WDIR=%EXEC_DIR%
++:findBaseDir
++IF EXIST "%WDIR%"\.mvn goto baseDirFound
++cd ..
++IF "%WDIR%"=="%CD%" goto baseDirNotFound
++set WDIR=%CD%
++goto findBaseDir
++
++:baseDirFound
++set MAVEN_PROJECTBASEDIR=%WDIR%
++cd "%EXEC_DIR%"
++goto endDetectBaseDir
++
++:baseDirNotFound
++set MAVEN_PROJECTBASEDIR=%EXEC_DIR%
++cd "%EXEC_DIR%"
++
++:endDetectBaseDir
++
++IF NOT EXIST "%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config" goto endReadAdditionalConfig
++
++@setlocal EnableExtensions EnableDelayedExpansion
++for /F "usebackq delims=" %%a in ("%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config") do set JVM_CONFIG_MAVEN_PROPS=!JVM_CONFIG_MAVEN_PROPS! %%a
++@endlocal & set JVM_CONFIG_MAVEN_PROPS=%JVM_CONFIG_MAVEN_PROPS%
++
++:endReadAdditionalConfig
++
++SET MAVEN_JAVA_EXE="%JAVA_HOME%\bin\java.exe"
++
++set WRAPPER_JAR="%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.jar"
++set WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
++
++%MAVEN_JAVA_EXE% %JVM_CONFIG_MAVEN_PROPS% %MAVEN_OPTS% %MAVEN_DEBUG_OPTS% -classpath %WRAPPER_JAR% "-Dmaven.multiModuleProjectDirectory=%MAVEN_PROJECTBASEDIR%" %WRAPPER_LAUNCHER% %MAVEN_CONFIG% %*
++if ERRORLEVEL 1 goto error
++goto end
++
++:error
++set ERROR_CODE=1
++
++:end
++@endlocal & set ERROR_CODE=%ERROR_CODE%
++
++if not "%MAVEN_SKIP_RC%" == "" goto skipRcPost
++@REM check for post script, once with legacy .bat ending and once with .cmd ending
++if exist "%HOME%\mavenrc_post.bat" call "%HOME%\mavenrc_post.bat"
++if exist "%HOME%\mavenrc_post.cmd" call "%HOME%\mavenrc_post.cmd"
++:skipRcPost
++
++@REM pause the script if MAVEN_BATCH_PAUSE is set to 'on'
++if "%MAVEN_BATCH_PAUSE%" == "on" pause
++
++if "%MAVEN_TERMINATE_CMD%" == "on" exit %ERROR_CODE%
++
++exit /B %ERROR_CODE%
+diff --git a/pom.xml b/pom.xml
+new file mode 100644
+index 0000000..3d2d2ed
+--- /dev/null
++++ b/pom.xml
+@@ -0,0 +1,63 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
++	<modelVersion>4.0.0</modelVersion>
++
++	<groupId>com.xgb</groupId>
++	<artifactId>demoRabbitmq</artifactId>
++	<version>0.0.1-SNAPSHOT</version>
++	<packaging>jar</packaging>
++
++	<name>demoRabbitmq</name>
++	<description>Demo project for Spring Boot</description>
++
++	<parent>
++		<groupId>org.springframework.boot</groupId>
++		<artifactId>spring-boot-starter-parent</artifactId>
++		<version>2.0.1.RELEASE</version>
++		<relativePath/> <!-- lookup parent from repository -->
++	</parent>
++
++	<properties>
++		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
++		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
++		<java.version>1.8</java.version>
++	</properties>
++
++	<dependencies>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-amqp</artifactId>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-web</artifactId>
++		</dependency>
++
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-test</artifactId>
++			<scope>test</scope>
++		</dependency>
++		
++		<!-- net.sf.json -->
++		<dependency>
++			<groupId>net.sf.json-lib</groupId>
++			<artifactId>json-lib</artifactId>
++			<version>2.4</version>
++			<classifier>jdk15</classifier>
++		</dependency>
++		
++	</dependencies>
++
++	<build>
++		<plugins>
++			<plugin>
++				<groupId>org.springframework.boot</groupId>
++				<artifactId>spring-boot-maven-plugin</artifactId>
++			</plugin>
++		</plugins>
++	</build>
++
++
++</project>
+diff --git a/src/main/java/com/xgb/demoRabbitmq/DemoRabbitmqApplication.java b/src/main/java/com/xgb/demoRabbitmq/DemoRabbitmqApplication.java
+new file mode 100644
+index 0000000..7bea06c
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/DemoRabbitmqApplication.java
+@@ -0,0 +1,14 @@
++package com.xgb.demoRabbitmq;
++
++import org.springframework.boot.SpringApplication;
++import org.springframework.boot.autoconfigure.SpringBootApplication;
++import org.springframework.context.annotation.ComponentScan;
++
++@SpringBootApplication
++@ComponentScan("com.xgb.demoRabbitmq")
++public class DemoRabbitmqApplication {
++
++	public static void main(String[] args) {
++		SpringApplication.run(DemoRabbitmqApplication.class, args);
++	}
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/callback/ConfirmCallBackListener.java b/src/main/java/com/xgb/demoRabbitmq/callback/ConfirmCallBackListener.java
+new file mode 100644
+index 0000000..6f9680a
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/callback/ConfirmCallBackListener.java
+@@ -0,0 +1,15 @@
++package com.xgb.demoRabbitmq.callback;
++
++import org.springframework.amqp.rabbit.core.RabbitTemplate.ConfirmCallback;
++import org.springframework.amqp.rabbit.support.CorrelationData;
++import org.springframework.stereotype.Service;
++
++@Service("confirmCallBackListener")
++public class ConfirmCallBackListener implements ConfirmCallback{
++
++	@Override
++	public void confirm(CorrelationData correlationData, boolean ack, String cause) {
++		System.out.println("confirm--:correlationData:"+correlationData+",ack:"+ack+",cause:"+cause);
++	}
++
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/callback/ReturnCallBackListener.java b/src/main/java/com/xgb/demoRabbitmq/callback/ReturnCallBackListener.java
+new file mode 100644
+index 0000000..a78d1f1
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/callback/ReturnCallBackListener.java
+@@ -0,0 +1,27 @@
++package com.xgb.demoRabbitmq.callback;
++
++import org.springframework.amqp.core.Message;
++import org.springframework.amqp.rabbit.core.RabbitTemplate.ReturnCallback;
++import org.springframework.stereotype.Service;
++
++@Service("returnCallBackListener")
++public class ReturnCallBackListener implements ReturnCallback {
++
++	@Override
++	public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
++		try {
++	    	String msgId = "";
++	   		if (message.getMessageProperties().getCorrelationId() != null) {
++	   			msgId = new String(message.getMessageProperties().getCorrelationId());
++	   		}
++	   		System.out.println("return--message: msgId:" + msgId + ",msgBody:" + new String(message.getBody())
++	   				+ ",replyCode:" + replyCode + ",replyText:" + replyText + ",exchange:" + exchange + ",routingKey:" + routingKey);
++	           
++	           //做相应的业务操作  
++       }catch (Exception e){  
++    	   System.out.println("message return callback exception:" + e);  
++  
++       }  
++	}
++
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/common/JSONUtils.java b/src/main/java/com/xgb/demoRabbitmq/common/JSONUtils.java
+new file mode 100644
+index 0000000..388bb79
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/common/JSONUtils.java
+@@ -0,0 +1,383 @@
++package com.xgb.demoRabbitmq.common;
++
++import java.util.ArrayList;
++import java.util.Collection;
++import java.util.HashMap;
++import java.util.Iterator;
++import java.util.List;
++import java.util.Map;
++
++import org.apache.commons.beanutils.BeanUtils;
++
++import net.sf.json.JSONArray;
++import net.sf.json.JSONObject;
++
++public class JSONUtils {
++    /**
++     * JSON工具类
++     */
++	
++    public static final String DATA = "data";//获取json的属性名称
++    
++    /**
++     * 将单个字符串转换为json格式eg："{"name":"value"}";
++     * @param name json名称
++     * @param value json值
++     * @return 返回转换后的jsonString
++     */
++    public static String toSingleStrJSON(String name,String value){
++		return "{\""+ name +"\":\""+ value +"\"}";
++    }
++    
++    /**
++     * 将字符串转为json格式的参数为data的json eg："{\"data\":\"0\"}";
++     * @param data 需要转换的字符串
++     * @return 返回转换后的jsonString
++     */
++    public static String toStringJSON(String data){
++		return "{\""+ JSONUtils.DATA +"\":\""+ data +"\"}";
++    }
++    
++    
++    /***
++     * 将List对象序列化为JSON文本
++     */
++    public static <T> String toJSONString(List<T> list)
++    {
++        JSONArray jsonArray = JSONArray.fromObject(list);
++
++        return jsonArray.toString();
++    }
++    
++    /***
++     * 将对象序列化为JSON文本
++     * @param object
++     * @return
++     */
++    public static String toJSONString(Object object)
++    {
++        JSONArray jsonArray = JSONArray.fromObject(object);
++
++        return jsonArray.toString();
++    }
++
++    /***
++     * 将JSON对象数组序列化为JSON文本
++     * @param jsonArray
++     * @return
++     */
++    public static String toJSONString(JSONArray jsonArray)
++    {
++        return jsonArray.toString();
++    }
++
++    /***
++     * 将JSON对象序列化为JSON文本
++     * @param jsonObject
++     * @return
++     */
++    public static String toJSONString(JSONObject jsonObject)
++    {
++        return jsonObject.toString();
++    } 
++    
++    /***
++     * 将对象转换为List对象
++     * @param object
++     * @return
++     */
++    public static List toArrayList(Object object)
++    {
++        List arrayList = new ArrayList();
++
++        JSONArray jsonArray = JSONArray.fromObject(object);
++
++        Iterator it = jsonArray.iterator();
++        while (it.hasNext())
++        {
++            JSONObject jsonObject = (JSONObject) it.next();
++
++            Iterator keys = jsonObject.keys();
++            while (keys.hasNext())
++            {
++                Object key = keys.next();
++                Object value = jsonObject.get(key);
++                arrayList.add(value);
++            }
++        }
++
++        return arrayList;
++    }
++
++    /***
++     * 将对象转换为Collection对象
++     * @param object
++     * @return
++     */
++    public static Collection toCollection(Object object)
++    {
++        JSONArray jsonArray = JSONArray.fromObject(object);
++
++        return JSONArray.toCollection(jsonArray);
++    }
++
++    /***
++     * 将对象转换为JSON对象数组
++     * @param object
++     * @return
++     */
++    public static JSONArray toJSONArray(Object object)
++    {
++        return JSONArray.fromObject(object);
++    }
++
++    /***
++     * 将对象转换为JSON对象
++     * @param object
++     * @return
++     */
++    public static JSONObject toJSONObject(Object object)
++    {
++        return JSONObject.fromObject(object);
++    }
++
++    /***
++     * 将对象转换为HashMap
++     * @param object
++     * @return
++     */
++    public static HashMap toHashMap(Object object)
++    {
++        HashMap<String, Object> data = new HashMap<String, Object>();
++        JSONObject jsonObject = JSONUtils.toJSONObject(object);
++        Iterator it = jsonObject.keys();
++        while (it.hasNext())
++        {
++            String key = String.valueOf(it.next());
++            Object value = jsonObject.get(key);
++            data.put(key, value);
++        }
++
++        return data;
++    }
++
++    /***
++     * 将对象转换为List>
++     * @param object
++     * @return
++     */
++    // 返回非实体类型(Map)的List
++    public static List<Map<String, Object>> toList(Object object)
++    {
++        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
++        JSONArray jsonArray = JSONArray.fromObject(object);
++        for (Object obj : jsonArray)
++        {
++            JSONObject jsonObject = (JSONObject) obj;
++            Map<String, Object> map = new HashMap<String, Object>();
++            Iterator it = jsonObject.keys();
++            while (it.hasNext())
++            {
++                String key = (String) it.next();
++                Object value = jsonObject.get(key);
++                map.put((String) key, value);
++            }
++            list.add(map);
++        }
++        return list;
++    }
++
++    /***
++     * 将JSON对象数组转换为传入类型的List
++     * @param 
++     * @param jsonArray
++     * @param objectClass
++     * @return
++     */
++    public static <T> List<T> toList(JSONArray jsonArray, Class<T> objectClass)
++    {
++        return JSONArray.toList(jsonArray, objectClass);
++    }
++
++    /***
++     * 将对象转换为传入类型的List
++     * @param 
++     * @param jsonArray
++     * @param objectClass
++     * @return
++     */
++    public static <T> List<T> toList(Object object, Class<T> objectClass)
++    {
++        JSONArray jsonArray = JSONArray.fromObject(object);
++
++        return JSONArray.toList(jsonArray, objectClass);
++    }
++
++    /***
++     * 将JSON对象转换为传入类型的对象
++     * @param 
++     * @param jsonObject
++     * @param beanClass
++     * @return
++     */
++    public static <T> T toBean(JSONObject jsonObject, Class<T> beanClass)
++    {
++        return (T) JSONObject.toBean(jsonObject, beanClass);
++    }
++
++    /***
++     * 将将对象转换为传入类型的对象
++     * @param 
++     * @param object
++     * @param beanClass
++     * @return
++     */
++    public static <T> T toBean(Object object, Class<T> beanClass)
++    {
++        JSONObject jsonObject = JSONObject.fromObject(object);
++
++        return (T) JSONObject.toBean(jsonObject, beanClass);
++    }
++
++    /***
++     * 将JSON文本反序列化为主从关系的实体
++     * @param 泛型T 代表主实体类型
++     * @param 泛型D 代表从实体类型
++     * @param jsonString JSON文本
++     * @param mainClass 主实体类型
++     * @param detailName 从实体类在主实体类中的属性名称
++     * @param detailClass 从实体类型
++     * @return
++     */
++    public static <T, D> T toBean(String jsonString, Class<T> mainClass,
++            String detailName, Class<D> detailClass)
++    {
++        JSONObject jsonObject = JSONObject.fromObject(jsonString);
++        JSONArray jsonArray = (JSONArray) jsonObject.get(detailName);
++
++        T mainEntity = JSONUtils.toBean(jsonObject, mainClass);
++        List<D> detailList = JSONUtils.toList(jsonArray, detailClass);
++
++        try
++        {
++            BeanUtils.setProperty(mainEntity, detailName, detailList);
++        }
++        catch (Exception ex)
++        {
++            throw new RuntimeException("主从关系JSON反序列化实体失败！");
++        }
++
++        return mainEntity;
++    }
++
++    /***
++     * 将JSON文本反序列化为主从关系的实体
++     * @param 泛型T 代表主实体类型
++     * @param 泛型D1 代表从实体类型
++     * @param 泛型D2 代表从实体类型
++     * @param jsonString JSON文本
++     * @param mainClass 主实体类型
++     * @param detailName1 从实体类在主实体类中的属性
++     * @param detailClass1 从实体类型
++     * @param detailName2 从实体类在主实体类中的属性
++     * @param detailClass2 从实体类型
++     * @return
++     */
++    public static <T, D1, D2> T toBean(String jsonString, Class<T> mainClass,
++            String detailName1, Class<D1> detailClass1, String detailName2,
++            Class<D2> detailClass2)
++    {
++        JSONObject jsonObject = JSONObject.fromObject(jsonString);
++        JSONArray jsonArray1 = (JSONArray) jsonObject.get(detailName1);
++        JSONArray jsonArray2 = (JSONArray) jsonObject.get(detailName2);
++
++        T mainEntity = JSONUtils.toBean(jsonObject, mainClass);
++        List<D1> detailList1 = JSONUtils.toList(jsonArray1, detailClass1);
++        List<D2> detailList2 = JSONUtils.toList(jsonArray2, detailClass2);
++
++        try
++        {
++            BeanUtils.setProperty(mainEntity, detailName1, detailList1);
++            BeanUtils.setProperty(mainEntity, detailName2, detailList2);
++        }
++        catch (Exception ex)
++        {
++            throw new RuntimeException("主从关系JSON反序列化实体失败！");
++        }
++
++        return mainEntity;
++    }
++    
++    /***
++     * 将JSON文本反序列化为主从关系的实体
++     * @param 泛型T 代表主实体类型
++     * @param 泛型D1 代表从实体类型
++     * @param 泛型D2 代表从实体类型
++     * @param jsonString JSON文本
++     * @param mainClass 主实体类型
++     * @param detailName1 从实体类在主实体类中的属性
++     * @param detailClass1 从实体类型
++     * @param detailName2 从实体类在主实体类中的属性
++     * @param detailClass2 从实体类型
++     * @param detailName3 从实体类在主实体类中的属性
++     * @param detailClass3 从实体类型
++     * @return
++     */
++    public static <T, D1, D2, D3> T toBean(String jsonString,
++            Class<T> mainClass, String detailName1, Class<D1> detailClass1,
++            String detailName2, Class<D2> detailClass2, String detailName3,
++            Class<D3> detailClass3)
++    {
++        JSONObject jsonObject = JSONObject.fromObject(jsonString);
++        JSONArray jsonArray1 = (JSONArray) jsonObject.get(detailName1);
++        JSONArray jsonArray2 = (JSONArray) jsonObject.get(detailName2);
++        JSONArray jsonArray3 = (JSONArray) jsonObject.get(detailName3);
++
++        T mainEntity = JSONUtils.toBean(jsonObject, mainClass);
++        List<D1> detailList1 = JSONUtils.toList(jsonArray1, detailClass1);
++        List<D2> detailList2 = JSONUtils.toList(jsonArray2, detailClass2);
++        List<D3> detailList3 = JSONUtils.toList(jsonArray3, detailClass3);
++
++        try
++        {
++            BeanUtils.setProperty(mainEntity, detailName1, detailList1);
++            BeanUtils.setProperty(mainEntity, detailName2, detailList2);
++            BeanUtils.setProperty(mainEntity, detailName3, detailList3);
++        }
++        catch (Exception ex)
++        {
++            throw new RuntimeException("主从关系JSON反序列化实体失败！");
++        }
++
++        return mainEntity;
++    }
++
++    /***
++     * 将JSON文本反序列化为主从关系的实体
++     * @param 主实体类型
++     * @param jsonString JSON文本
++     * @param mainClass 主实体类型
++     * @param detailClass 存放了多个从实体在主实体中属性名称和类型
++     * @return
++     */
++    public static <T> T toBean(String jsonString, Class<T> mainClass,
++            HashMap<String, Class> detailClass)
++    {
++        JSONObject jsonObject = JSONObject.fromObject(jsonString);
++        T mainEntity = JSONUtils.toBean(jsonObject, mainClass);
++        for (Object key : detailClass.keySet())
++        {
++            try
++            {
++                Class value = (Class) detailClass.get(key);
++                BeanUtils.setProperty(mainEntity, key.toString(), value);
++            }
++            catch (Exception ex)
++            {
++                throw new RuntimeException("主从关系JSON反序列化实体失败！");
++            }
++        }
++        return mainEntity;
++    }
++    
++}
+\ No newline at end of file
+diff --git a/src/main/java/com/xgb/demoRabbitmq/common/ToolsHttpRequest.java b/src/main/java/com/xgb/demoRabbitmq/common/ToolsHttpRequest.java
+new file mode 100644
+index 0000000..90788cd
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/common/ToolsHttpRequest.java
+@@ -0,0 +1,262 @@
++package com.xgb.demoRabbitmq.common;
++
++
++import java.io.BufferedReader;
++import java.io.IOException;
++import java.io.InputStreamReader;
++import java.io.OutputStreamWriter;
++import java.io.PrintWriter;
++import java.net.URL;
++import java.net.URLConnection;
++
++
++public class ToolsHttpRequest {
++    /**
++     * 向指定URL发送GET方法的请求
++     * 
++     * @param url
++     *            发送请求的URL
++     * @param param
++     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
++     * @return URL 所代表远程资源的响应结果
++     */
++    public static String sendGet(String url, String param) {
++        String result = "";
++        BufferedReader in = null;
++        try {
++            String urlNameString = url + "?" + param;
++            URL realUrl = new URL(urlNameString);
++            // 打开和URL之间的连接
++            URLConnection connection = realUrl.openConnection();
++            // 设置通用的请求属性
++            
++            connection.setRequestProperty("accept", "*/*");
++            connection.setRequestProperty("connection", "Keep-Alive");
++            connection.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
++            // 建立实际的连接
++            connection.connect();
++            // 获取所有响应头字段
++            //Map<String, List<String>> map = connection.getHeaderFields();
++            // 遍历所有的响应头字段
++//            for (String key : map.keySet()) {
++//                System.out.println(key + "--->" + map.get(key));
++//            }
++            // 定义 BufferedReader输入流来读取URL的响应
++            in = new BufferedReader(new InputStreamReader(connection.getInputStream(),"utf-8"));
++            String line;
++            while ((line = in.readLine()) != null) {
++                result += line;
++            }
++        } catch (Exception e) {
++            System.out.println("发送GET请求出现异常！" + e);
++            e.printStackTrace();
++        }
++        // 使用finally块来关闭输入流
++        finally {
++            try {
++                if (in != null) {
++                    in.close();
++                }
++            } catch (Exception e2) {
++                e2.printStackTrace();
++            }
++        }
++        
++        return result;
++    }
++
++    
++    /**
++     * 向指定 URL 发送POST方法的请求
++     * 
++     * @param url 发送请求的 URL
++     * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
++     * @return 所代表远程资源的响应结果
++     */
++    public static String sendPost(String url, String param) {
++        PrintWriter out = null;
++        BufferedReader in = null;
++        String result = "";
++        try {
++            URL realUrl = new URL(url);
++            // 打开和URL之间的连接
++            URLConnection conn = realUrl.openConnection();
++            // 设置通用的请求属性
++            conn.setRequestProperty("accept", "*/*");
++            conn.setRequestProperty("connection", "Keep-Alive");
++            conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
++            // 发送POST请求必须设置如下两行
++            conn.setDoOutput(true);
++            conn.setDoInput(true);
++            // 获取URLConnection对象对应的输出流
++            out = new PrintWriter(conn.getOutputStream());
++            // 发送请求参数
++            out.print(param);
++            // flush输出流的缓冲
++            out.flush();
++            // 定义BufferedReader输入流来读取URL的响应
++            in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
++            String line;
++            while ((line = in.readLine()) != null) {
++                result += line;
++            }
++
++        } catch (Exception e) {
++            System.out.println("发送 POST 请求出现异常！"+e);
++            e.printStackTrace();
++        }
++        //使用finally块来关闭输出流、输入流
++        finally{
++            try{
++                if(out!=null){
++                    out.close();
++                }
++                if(in!=null){
++                    in.close();
++                }
++            }
++            catch(IOException ex){
++                ex.printStackTrace();
++            }
++        }
++        
++        return result;
++    }    
++    
++    
++    /** 
++     * 向指定 URL 发送POST方法的请求 
++     *  
++     * @param url 
++     *            发送请求的 URL 
++     * @param param 
++     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。 
++     * @return 所代表远程资源的响应结果 
++     */  
++    public static String sendPostByUTF8(String url, String param) {  
++        PrintWriter out = null;  
++        BufferedReader in = null;  
++        String result = "";  
++        try {  
++            URL realUrl = new URL(url);  
++            // 打开和URL之间的连接  
++            URLConnection conn = realUrl.openConnection();  
++            //设置通用的请求属性  
++            conn.setRequestProperty("user-agent","Mozilla/5.0 (Windows NT 6.1; WOW64; rv:21.0) Gecko/20100101 Firefox/21.0)");  
++            // 发送POST请求必须设置如下两行  
++            conn.setDoOutput(true);  
++            conn.setDoInput(true);  
++            // 获取URLConnection对象对应的输出流  
++            OutputStreamWriter outWriter = new OutputStreamWriter(conn.getOutputStream(), "utf-8");  
++            out = new PrintWriter(outWriter);  
++            // 发送请求参数  
++            out.print(param);  
++            // flush输出流的缓冲  
++            out.flush();  
++            // 定义BufferedReader输入流来读取URL的响应  
++            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));  
++            String line;  
++            while ((line = in.readLine()) != null) {  
++                in = new BufferedReader(new InputStreamReader(conn.getInputStream()));result += line;  
++            }  
++        } catch (Exception e) {  
++            System.out.println("发送 POST 请求出现异常！"+e);  
++            e.printStackTrace();  
++        }  
++        //使用finally块来关闭输出流、输入流  
++        finally{  
++            try{  
++                if(out!=null){  
++                    out.close();  
++                }  
++                if(in!=null){  
++                    in.close();  
++                }  
++            }  
++            catch(IOException ex){  
++                ex.printStackTrace();  
++            }  
++        }  
++        return result;  
++    }
++    
++    
++    
++    
++
++
++    
++    /**
++     * 向指定 URL 发送POST方法的请求
++     * 
++     * @param url 发送请求的 URL
++     * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
++     * @return 所代表远程资源的响应结果
++     */
++    public static String sendPostWechatQRCode(String url, String param) {
++        PrintWriter out = null;
++        BufferedReader in = null;
++        String result = "";
++        try {
++            URL realUrl = new URL(url);
++            // 打开和URL之间的连接
++            URLConnection conn = realUrl.openConnection();
++            // 设置通用的请求属性
++            conn.setRequestProperty("Accept-Ranges", "bytes");
++            conn.setRequestProperty("Cache-control", "max-age=604800");
++            conn.setRequestProperty("Connection","keep-alive");
++            
++            conn.setRequestProperty("Content-Length", "28026");
++            conn.setRequestProperty("Content-Type", "image/jpg");
++            conn.setRequestProperty("Server","nginx/1.4.1");
++            conn.setRequestProperty("Date","Wed, 16 Oct 2013 06:37:10 GMT");
++            conn.setRequestProperty("Expires","Wed, 23 Oct 2013 14:37:10 +0800");
++            
++//            Accept-Ranges:bytes
++//            Cache-control:max-age=604800
++//            Connection:keep-alive
++//            Content-Length:28026
++//            Content-Type:image/jpg
++//            Date:Wed, 16 Oct 2013 06:37:10 GMT
++//            Expires:Wed, 23 Oct 2013 14:37:10 +0800
++//            Server:nginx/1.4.1
++            // 发送POST请求必须设置如下两行
++            conn.setDoOutput(true);
++            conn.setDoInput(true);
++            // 获取URLConnection对象对应的输出流
++            out = new PrintWriter(conn.getOutputStream());
++            // 发送请求参数
++            out.print(param);
++            // flush输出流的缓冲
++            out.flush();
++            // 定义BufferedReader输入流来读取URL的响应
++            in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
++            String line;
++            while ((line = in.readLine()) != null) {
++                result += line;
++            }
++
++        } catch (Exception e) {
++            System.out.println("发送 POST 请求出现异常！"+e);
++            e.printStackTrace();
++        }
++        //使用finally块来关闭输出流、输入流
++        finally{
++            try{
++                if(out!=null){
++                    out.close();
++                }
++                if(in!=null){
++                    in.close();
++                }
++            }
++            catch(IOException ex){
++                ex.printStackTrace();
++            }
++        }
++        
++        return result;
++    }    
++    
++
++}
+\ No newline at end of file
+diff --git a/src/main/java/com/xgb/demoRabbitmq/common/ToolsString.java b/src/main/java/com/xgb/demoRabbitmq/common/ToolsString.java
+new file mode 100644
+index 0000000..fb3d7ae
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/common/ToolsString.java
+@@ -0,0 +1,409 @@
++package com.xgb.demoRabbitmq.common;
++
++import java.util.ArrayList;
++import java.util.Calendar;
++import java.util.Date;
++import java.util.LinkedHashSet;
++import java.util.List;
++import java.util.Random;
++import java.util.Set;
++import java.util.regex.Matcher;
++import java.util.regex.Pattern;
++
++/**
++ * 字符串Tools
++ * 
++ * @author Administrator
++ *
++ */
++public class ToolsString {
++	/**
++	 * 截取字符串
++	 * 
++	 * @param str
++	 *            传入要截取的字符串
++	 * @param begin
++	 *            开始截取
++	 * @param end
++	 *            结束截取
++	 * @return
++	 */
++	public static String getString(String str, String begin, String end) {
++		String str1 = str.substring(str.lastIndexOf(begin) + 1, str.lastIndexOf(end));
++		return str1;
++	}
++
++	/**
++	 * 从一段字符串中获取其中的图片路径
++	 * 
++	 * @param str
++	 * @return 获得图片字符集合
++	 */
++	public static List<String> getImg(String str) {
++		String regex;
++		List<String> list = new ArrayList<String>();
++		regex = "src=\"(.*?)\"";
++		Pattern pa = Pattern.compile(regex, Pattern.DOTALL);
++		Matcher ma = pa.matcher(str);
++		while (ma.find()) {
++			list.add(ma.group());
++		}
++		return list;
++	}
++
++	/**
++	 * 斜杠转换
++	 * 
++	 * @param str
++	 *            需要转换的字符串
++	 * @param type [转换类型type == 0 “/”转“\”] [type == 1 “\”转“/”]
++	 * @return 返回转换后的字符串
++	 */
++	public static String SlashConversion(String str, int type) {
++		String returnStr = "";
++		if (type == 0) {// “/”转“\”
++			returnStr = str.replaceAll("/", "\\\\");
++		}
++		if (type == 1) {// “\”转“/”
++			returnStr = str.replaceAll("\\\\", "/");
++		}
++		return returnStr;
++	}
++
++	/**
++	 * 获取A~Z的随机字符
++	 * 
++	 * @param digit
++	 *            字符位数 int类型
++	 * @param caseWrite
++	 *            是否忽略大小写 true 忽略 false 不忽略
++	 * @return 返回随机A~Z的特点位数的字符
++	 */
++	public static String GetRandomStrATOZ(int digit, boolean caseWrite) {
++		Random random = new Random();
++		StringBuffer sb = new StringBuffer();
++		for (int i = 0; i < digit; ++i) {
++			int number = random.nextInt(2);
++			if (caseWrite) {
++				number = random.nextInt(1);
++			}
++			long result = 0;
++			switch (number) {
++			case 0:
++				/* A-Z 的 ASCII 码值[65,90] */
++				result = Math.round(Math.random() * 25 + 65);
++				sb.append(String.valueOf((char) result));
++				break;
++			case 1:
++				/* a-z 的 ASCII 码值[97,122] */
++				result = Math.round(Math.random() * 25 + 97);
++				sb.append(String.valueOf((char) result));
++				break;
++			}
++		}
++		return sb.toString();
++	}
++
++	/**
++	 * 获取0~9的随机随机数
++	 * 
++	 * @param digit
++	 *            控制位数
++	 * @return 返回随机数
++	 */
++	public static String GetRandomIntegerZeroToNine(int digit) {
++		StringBuffer sb = new StringBuffer();
++		if (digit > 0) {
++			for (int i = 0; i < digit; i++) {
++				sb.append(Math.random() * 10);
++			}
++		}
++		return sb.toString();
++	}
++
++	/**
++	 * 判断字符串是否是数字
++	 * 
++	 * @param str
++	 * @return
++	 */
++	public static boolean isNumeric(String str) {
++		for (int i = 0; i < str.length(); i++) {
++			if (!Character.isDigit(str.charAt(i))) {
++				return false;
++			}
++		}
++		return true;
++	}
++
++	/**
++	 * 手机号验证
++	 * 
++	 * @param str
++	 * @return 验证通过返回true
++	 */
++	public static boolean isMobile(String str) {
++		Pattern p = null;
++		Matcher m = null;
++		boolean b = false;
++		p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$"); // 验证手机号
++		m = p.matcher(str);
++		b = m.matches();
++		return b;
++	}
++
++	/**
++	 * 电话号码验证
++	 * 
++	 * @param str
++	 * @return 验证通过返回true
++	 */
++	public static boolean isPhone(String str) {
++		Pattern p1 = null, p2 = null;
++		Matcher m = null;
++		boolean b = false;
++		p1 = Pattern.compile("^[0][1-9]{2,3}-[0-9]{5,10}$"); // 验证带区号的
++		p2 = Pattern.compile("^[1-9]{1}[0-9]{5,8}$"); // 验证没有区号的
++		if (str.length() > 9) {
++			m = p1.matcher(str);
++			b = m.matches();
++		} else {
++			m = p2.matcher(str);
++			b = m.matches();
++		}
++		return b;
++	}
++
++	/**
++	 * 验证是否是4位纯数字
++	 * 
++	 * @param number
++	 * @return
++	 */
++	public static boolean verifyNumber(String number) {
++		boolean result = false;
++		// 正则表达式规则：0-9之间的数字连续出现4次
++		Pattern pattern = Pattern.compile("[0-9]{4}");
++		Matcher matcher = pattern.matcher(number);
++		// 匹配成功就表明是纯数字
++		if (matcher.matches())
++			result = true;
++
++		return result;
++	}
++
++	/**
++	 * 验证是否有重复字符
++	 * 
++	 * @param number
++	 * @return
++	 */
++	public static boolean verifyRepeat(String number) {
++		boolean result = false;
++		// 从第2位数开始，每位都与它前面的所有数比较一遍
++		for (int i = 1; i < number.length(); i++) {
++			for (int j = 0; j < i; j++) {
++				if (number.charAt(i) == number.charAt(j)) {
++					result = true;
++					break;
++				}
++			}
++		}
++		return result;
++	}
++
++	/**
++	 * 生成不重复的digit位随机数
++	 * 
++	 * @param digit
++	 *            位数
++	 * @return String
++	 */
++	public static String generateRandNumber(int digit) {
++		if (digit <= 0) {
++			return "0";
++		}
++		StringBuffer randBuffer = new StringBuffer();
++		String scopeStr = "0123456789";
++		Random random = new Random();
++		for (int i = 0; i < digit; i++) {
++			int num = random.nextInt(scopeStr.length());
++			randBuffer.append(scopeStr.charAt(num));
++			// 将每次获取到的随机数从scopeStr中移除
++			scopeStr = scopeStr.replace(String.valueOf(scopeStr.charAt(num)), "");
++		}
++		return randBuffer.toString();
++	}
++
++	/**
++	 * 计算猜测结果
++	 * 
++	 * @param answer
++	 *            正确答案
++	 * @param number
++	 *            猜测的数字
++	 * @return xAyB
++	 */
++	public static String guessResult(String answer, String number) {
++		// 位置与数字均相同
++		int rightA = 0;
++		// 数字存在但位置不对
++		int rightB = 0;
++
++		// 计算“A”的个数
++		for (int i = 0; i < 4; i++) {
++			// 位置与数字均相同
++			if (number.charAt(i) == answer.charAt(i)) {
++				rightA++;
++			}
++		}
++
++		// 计算“B”的个数
++		for (int i = 0; i < 4; i++) {
++			for (int j = 0; j < 4; j++) {
++				// 位置不相同
++				if (i != j) {
++					if (number.charAt(i) == answer.charAt(j)) {
++						rightB++;
++					}
++				}
++			}
++		}
++		return String.format("%sA%sB", rightA, rightB);
++	}
++
++	/**
++	 * 获取图片保存地址
++	 * 
++	 * @param appRoot
++	 *            项目下的webRoot路径
++	 *            获取方式：req.getSession().getServletContext().getRealPath("");
++	 * @param webRoot
++	 *            图片存放的初始不完整路径 获取方式："upload/CodeImg/"
++	 * @return strArr[] 下标0的为图片存放磁盘文件夹路径 下标1的为图片存放磁盘文件路径 下标2的为图片存放数据库的后部分路径(
++	 *         <img/>可以直接使用的路径)
++	 */
++	public static String[] getFilePath(String appRoot, String webRoot) {
++		Calendar now = Calendar.getInstance();
++		int mou = now.get(Calendar.MONTH) + 1;// 月
++		Date date = new Date();
++		// [saveFilePath]服务器保存文件路径
++		String saveFilePath = webRoot + now.get(Calendar.YEAR) + mou + now.get(Calendar.DAY_OF_MONTH);
++		String path = appRoot;
++
++		String imgLastName = date.getTime() + ".jpg";// 文件名称 xxx.jpg
++		String imgDiskPath = saveFilePath;// 保存在的文件夹名称
++
++		String imgDataBasePath = webRoot + now.get(Calendar.YEAR) + mou + now.get(Calendar.DAY_OF_MONTH) + "/"
++				+ imgLastName;// 保存在数据库内的名称
++		String diskPath = ToolsString.SlashConversion(path, 1) + "/" + imgDiskPath;
++		diskPath = diskPath.replaceAll(":", ":/");
++		// [diskPath] "d://qrcode.jpg"
++		String[] strArr = new String[3];
++		strArr[0] = diskPath;
++		strArr[1] = diskPath + "/" + imgLastName;
++		strArr[2] = imgDataBasePath;
++		return strArr;
++	}
++
++	/**
++	 * 去掉字符串的第一个‘[’ 和最后一个 ‘]’
++	 * 
++	 * @param str
++	 * @return 返回去掉后的字符串
++	 */
++	public static String getStrRemoveBracket(String str) {
++		if (str != null && !"".equals(str)) {
++			StringBuffer sb = new StringBuffer(str);
++			if ("[".equals(String.valueOf(sb.charAt(0)))) {
++				sb = sb.deleteCharAt(0);
++				if ("]".equals(String.valueOf(sb.charAt(sb.length() - 1)))) {
++					sb = sb.deleteCharAt(sb.length() - 1);
++				}
++			}
++			return sb.toString();
++		}
++		return str;
++	}
++
++	/**
++	 * 生成订单编号:格式DAXI+年月日(该方法不包括后四位编号，由于编号是按照当天订单数量决定)
++	 * 
++	 * @param StringBuffer
++	 *            sb
++	 * @return StringBuffer sb
++	 */
++	public static StringBuffer getOrderNo(StringBuffer sb) {
++		Calendar now = Calendar.getInstance();
++		int year = now.get(Calendar.YEAR);
++		int month = now.get(Calendar.MONTH) + 1;
++		int daye = now.get(Calendar.DAY_OF_MONTH);
++		sb.append(year);
++		if (month < 10) {
++			sb.append(0);
++		}
++		sb.append(month);
++		if (daye < 10) {
++			sb.append(0);
++		}
++		sb.append(daye);
++		return sb;
++	}
++
++	/**
++	 * 比较两个字符串并返回相同部分
++	 * 
++	 * @param str1
++	 *            eg:"刘烨,孙坚,王二小,蜘蛛侠,钢铁侠,毛剑卿";
++	 * @param str2
++	 *            eg:"王二小,李占军,刘胡兰,毛剑卿";
++	 * @return 返回相同的字符串 王二小,毛剑卿
++	 */
++	public static String getIdenticalString(String str1, String str2) {
++		String[] arr1 = str1.split(",");
++		String[] arr2 = str2.split(",");
++		StringBuffer sb = new StringBuffer();
++		for (int i = 0; i < arr2.length; i++) {
++			for (int j = 0; j < arr1.length; j++) {
++				if (arr1[j].equals(arr2[i])) {
++					sb.append(arr1[j] + ",");
++				}
++			}
++		}
++		String str = sb.toString().substring(0, sb.toString().length());
++		return str;
++	}
++
++ 
++
++	/**
++	 * 清除重复字符串
++	 * @param str
++	 * @return
++	 */
++	public static String removeSameString(String str,String del) {
++		Set<String> mlinkedset = new LinkedHashSet<String>();
++		String[] strarray = str.split(del);
++		StringBuffer sb = new StringBuffer();
++		for (int i = 0; i < strarray.length; i++) {
++			if (!mlinkedset.contains(strarray[i])) {
++				mlinkedset.add(strarray[i]);
++				sb.append(strarray[i] + " ");
++			}
++		}
++		return sb.toString().substring(0, sb.toString().length() - 1);
++	}
++	
++	
++	/**
++	 * 获取某个范围的随机数
++	 * @param min 最小值
++	 * @param max 最大值
++	 * @return
++	 */
++	public static int getRandom(int min,int max) {
++        Random random = new Random();
++        int r = random.nextInt(max)%(max-min+1) + min;
++		return r;
++	}
++}
+\ No newline at end of file
+diff --git a/src/main/java/com/xgb/demoRabbitmq/config/AmqpConfig.java b/src/main/java/com/xgb/demoRabbitmq/config/AmqpConfig.java
+new file mode 100644
+index 0000000..6536246
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/config/AmqpConfig.java
+@@ -0,0 +1,169 @@
++package com.xgb.demoRabbitmq.config;
++
++import java.io.IOException;
++import java.util.HashMap;
++import java.util.Map;
++
++import org.slf4j.Logger;
++import org.slf4j.LoggerFactory;
++import org.springframework.amqp.core.AcknowledgeMode;
++import org.springframework.amqp.core.Binding;
++import org.springframework.amqp.core.BindingBuilder;
++import org.springframework.amqp.core.DirectExchange;
++import org.springframework.amqp.core.Message;
++import org.springframework.amqp.core.Queue;
++import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
++import org.springframework.amqp.rabbit.connection.ConnectionFactory;
++import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
++import org.springframework.amqp.rabbit.core.RabbitTemplate;
++import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
++import org.springframework.beans.factory.annotation.Value;
++import org.springframework.beans.factory.config.ConfigurableBeanFactory;
++import org.springframework.context.annotation.Bean;
++import org.springframework.context.annotation.Configuration;
++import org.springframework.context.annotation.Scope;
++
++import com.rabbitmq.client.Channel;
++import com.xgb.demoRabbitmq.common.ToolsHttpRequest;
++import com.xgb.demoRabbitmq.dto.DtoMessage;
++
++
++//@Configuration
++public class AmqpConfig {
++//	private static Logger logger = LoggerFactory.getLogger(AmqpConfig.class);
++//	public static final String EXCHANGE   = "exchange-test"; 
++//    public static final String QUEUE_NAME = "queue-test";  
++//    public static final String DEAD_QUEUE_NAME = "dead-queue-test";  
++//    
++//    @Value("${spring.rabbitmq.host}")
++//    private String addresses;
++//    
++//    @Value("${spring.rabbitmq.username}")
++//    private String username;
++//    
++//    @Value("${spring.rabbitmq.password}")
++//    private String password;
++//    
++//    @Value("${spring.rabbitmq.virtual-host}")
++//    private String host;
++//    
++//    
++//    @Bean
++//    public ConnectionFactory connectionFactory(){
++//    	CachingConnectionFactory connectionFactory = new CachingConnectionFactory();  
++//        connectionFactory.setAddresses(addresses);  
++//        connectionFactory.setUsername(username);  
++//        connectionFactory.setPassword(password);  
++//        connectionFactory.setVirtualHost(host);  
++//        connectionFactory.setPublisherConfirms(true); //必须要设置 自动创建的ConnectionFactory无法完成事件的回调
++//        return connectionFactory;  
++//    }
++//    
++//    
++//    @Bean
++//    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
++//    public RabbitTemplate rabbitTemplate(){
++//    	RabbitTemplate template = new RabbitTemplate(connectionFactory());
++//		return template;
++//    }
++//    
++//    @Bean
++//    public DirectExchange defaultExchange(){
++//		return new DirectExchange(EXCHANGE);
++//    	
++//    }
++//    
++//    
++//    
++//    @Bean
++//    public Queue queue(){
++//		return new Queue(QUEUE_NAME,true);
++//    }
++//    
++//    @Bean
++//    public Queue deadQueue(){
++////    	Queue queue = new Queue(DEAD_QUEUE_NAME,true);
++//    	Map<String, Object> map = new HashMap<String, Object>();
++//    	map.put("x-message-ttl", 15000);
++//    	map.put("x-dead-letter-exchange", AmqpConfig.EXCHANGE);
++//    	map.put("x-dead-letter-routing-key", AmqpConfig.QUEUE_NAME);
++//    	Queue queue = new Queue(DEAD_QUEUE_NAME, true, false, false, map);
++//    	System.out.println("------------------------------------------------------");
++//		System.out.println("Create queue Ok!!" + queue);
++//		System.out.println("------------------------------------------------------");
++//		return queue;
++////		return new Queue(DEAD_QUEUE_NAME,true);
++//    }
++//    
++//    @Bean
++//    public Binding binding(){
++//    	return BindingBuilder.bind(queue()).to(defaultExchange()).with(AmqpConfig.EXCHANGE);
++//    }
++//    
++//    @Bean
++//    public SimpleMessageListenerContainer messageContainer(){
++//    	SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory());  
++//        container.setQueues(queue());  
++//        container.setExposeListenerChannel(true);  
++//        container.setMaxConcurrentConsumers(1);  
++//        container.setConcurrentConsumers(1);  
++//        container.setAcknowledgeMode(AcknowledgeMode.MANUAL); //设置确认模式手工确认  
++//        System.out.println("------------------------------------------------------");
++//		System.out.println("Create SimpleMessageListenerContainer Ok!!" + container);
++//		System.out.println("------------------------------------------------------");
++//        container.setMessageListener(new ChannelAwareMessageListener() { 
++//			
++//			@Override
++//			public void onMessage(Message message, Channel channel) throws Exception {
++//				try{
++//					String flag = "fail";
++//					String json = new String(message.getBody());
++//					System.out.println("消费消息  consumer -- : " + message.getMessageProperties() + " : " + json );
++//					DtoMessage messageJson = DtoMessage.transformationToJson(json);
++//					if(messageJson != null) {
++//						if(messageJson.getRequestMethod() != null) {
++//							if("get".equals(messageJson.getRequestMethod())) {
++//								flag = ToolsHttpRequest.sendGet(messageJson.getUrl(), messageJson.getParams());
++//							}else if("post".equals(messageJson.getRequestMethod())) {
++//								flag = ToolsHttpRequest.sendPost(messageJson.getUrl(), messageJson.getParams());
++//							}
++//						}
++//					}
++//					
++//					if("ok".equals(flag)) {
++//						System.out.println("Ack message ："  + json);
++//						basicACK(message, channel);//处理正常 ACK消息
++//					}else {
++//						System.out.println("NAck message ："  + json);
++//						basicNACK(message, channel);//处理异常 NACK消息
++//					}
++//				}catch(Exception e){
++//					e.printStackTrace();
++//					//TODO 业务处理
++//					channel.basicNack(message.getMessageProperties().getDeliveryTag(), false,false);
++//				}
++//			}
++//		});
++//    	
++//		return null;
++//    }
++//    
++//    
++//  //正常消费掉后通知mq服务器移除此条mq
++//  	private void basicACK(Message message,Channel channel){
++//  		try{
++//  			channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
++//  		}catch(IOException e){
++//  			logger.error("通知服务器移除mq时异常，异常信息：" + e);
++//  		}
++//  	}
++//  	//处理异常，mq重回队列
++//  	private void basicNACK(Message message,Channel channel){
++//  		try{
++//  			channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
++//  		}catch(IOException e){
++//  			logger.error("mq重新进入服务器时出现异常，异常信息：" + e);
++//  		}
++//  	}
++ 
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/consumer/ReceiveConfirmTestListener.java b/src/main/java/com/xgb/demoRabbitmq/consumer/ReceiveConfirmTestListener.java
+new file mode 100644
+index 0000000..fd5b831
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/consumer/ReceiveConfirmTestListener.java
+@@ -0,0 +1,68 @@
++package com.xgb.demoRabbitmq.consumer;
++
++import org.slf4j.Logger;
++import org.slf4j.LoggerFactory;
++import org.springframework.amqp.core.Message;
++import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
++import org.springframework.stereotype.Service;
++
++import com.rabbitmq.client.Channel;
++import com.xgb.demoRabbitmq.common.ToolsHttpRequest;
++import com.xgb.demoRabbitmq.dto.DtoMessage;
++
++import java.io.IOException;
++
++
++@Service("receiveConfirmTestListener")
++public class ReceiveConfirmTestListener implements ChannelAwareMessageListener {  
++	private static Logger logger = LoggerFactory.getLogger(ReceiveConfirmTestListener.class);
++
++	@Override
++	public void onMessage(Message message, Channel channel) throws Exception {
++		try{
++			String flag = "fail";
++			String json = new String(message.getBody());
++			System.out.println("消费消息  consumer -- : " + message.getMessageProperties() + " : " + json );
++			DtoMessage messageJson = DtoMessage.transformationToJson(json);
++			if(messageJson != null) {
++				if(messageJson.getRequestMethod() != null) {
++					if("get".equals(messageJson.getRequestMethod())) {
++						flag = ToolsHttpRequest.sendGet(messageJson.getUrl(), messageJson.getParams());
++					}else if("post".equals(messageJson.getRequestMethod())) {
++						flag = ToolsHttpRequest.sendPost(messageJson.getUrl(), messageJson.getParams());
++					}
++				}
++			}
++			
++			if("ok".equals(flag)) {
++				System.out.println("Ack message ："  + json);
++				basicACK(message, channel);//处理正常 ACK消息
++			}else {
++				System.out.println("NAck message ："  + json);
++				basicNACK(message, channel);//处理异常 NACK消息
++			}
++		}catch(Exception e){
++			e.printStackTrace();
++			//TODO 业务处理
++			channel.basicNack(message.getMessageProperties().getDeliveryTag(), false,false);
++		}
++	}
++
++	//正常消费掉后通知mq服务器移除此条mq
++	private void basicACK(Message message,Channel channel){
++		try{
++			channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
++		}catch(IOException e){
++			logger.error("通知服务器移除mq时异常，异常信息：" + e);
++		}
++	}
++	//处理异常，mq重回队列
++	private void basicNACK(Message message,Channel channel){
++		try{
++			channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
++		}catch(IOException e){
++			logger.error("mq重新进入服务器时出现异常，异常信息：" + e);
++		}
++	}
++  
++}  
+diff --git a/src/main/java/com/xgb/demoRabbitmq/controller/DemoController.java b/src/main/java/com/xgb/demoRabbitmq/controller/DemoController.java
+new file mode 100644
+index 0000000..157777e
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/controller/DemoController.java
+@@ -0,0 +1,42 @@
++package com.xgb.demoRabbitmq.controller;
++
++import java.util.UUID;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++import com.xgb.demoRabbitmq.config.AmqpConfig;
++import com.xgb.demoRabbitmq.dto.DtoMessage;
++import com.xgb.demoRabbitmq.publish.DeadLetterPublishService;
++
++@RestController
++public class DemoController {
++	
++	@Autowired DeadLetterPublishService deadLetterPublishService;
++	
++	@RequestMapping("/send")
++	public String sendMsg(String message){
++		DtoMessage dtoMessage = new DtoMessage(UUID.randomUUID().toString(), "http://localhost/receive", 
++				"get", "message=" + message, "");
++		String msg = DtoMessage.transformationToJson(dtoMessage);
++		System.out.println("deadLetterPublishService: " + deadLetterPublishService);
++//		deadLetterPublishService.send(AmqpConfig.DEAD_QUEUE_NAME, msg);
++		System.out.println("------------------------------------------------------");
++		System.out.println("send message Ok!!" + msg);
++		System.out.println("------------------------------------------------------");
++		return "send message Ok!!" + msg;
++	}
++	
++	
++	@RequestMapping("receive")
++	public String receive(String message){
++		DtoMessage dtoMessage = DtoMessage.transformationToJson(message);
++		System.out.println("------------------------------------------------------");
++		System.out.println("receive message : " + dtoMessage);
++		System.out.println("------------------------------------------------------");
++		return "receive message : " + dtoMessage;
++	}
++	
++	
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/dto/DtoMessage.java b/src/main/java/com/xgb/demoRabbitmq/dto/DtoMessage.java
+new file mode 100644
+index 0000000..9c1227f
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/dto/DtoMessage.java
+@@ -0,0 +1,94 @@
++package com.xgb.demoRabbitmq.dto;
++
++import com.xgb.demoRabbitmq.common.JSONUtils;
++import com.xgb.demoRabbitmq.common.ToolsString;
++
++public class DtoMessage {
++
++	private String id;//消息id
++	private String url;//消息访问地址 
++	private String requestMethod;//url 请求方式 get/post
++	private String params;//url 请求的参数
++	private String descM;//消息描述
++	
++	public String getId() {
++		return id;
++	}
++
++	public void setId(String id) {
++		this.id = id;
++	}
++
++	public String getUrl() {
++		return url;
++	}
++
++	public void setUrl(String url) {
++		this.url = url;
++	}
++
++	public String getRequestMethod() {
++		return requestMethod;
++	}
++
++	public void setRequestMethod(String requestMethod) {
++		this.requestMethod = requestMethod;
++	}
++
++	public String getParams() {
++		return params;
++	}
++
++	public void setParams(String params) {
++		this.params = params;
++	}
++
++	public String getDescM() {
++		return descM;
++	}
++
++	public void setDescM(String descM) {
++		this.descM = descM;
++	}
++
++	
++	public DtoMessage() {
++		super();
++	}
++
++	public DtoMessage(String id, String url, String requestMethod, String params, String descM) {
++		super();
++		this.id = id;
++		this.url = url;
++		this.requestMethod = requestMethod;
++		this.params = params;
++		this.descM = descM;
++	}
++
++	//** message对象转json  */
++	public static String transformationToJson(DtoMessage messageJson) {
++		if(messageJson != null) {
++			String json = JSONUtils.toJSONString(messageJson);
++			json = ToolsString.getStrRemoveBracket(json);
++			return json;
++		}else {
++			return null;
++		}
++	}
++	
++	//** json转message对象  */
++	public static DtoMessage transformationToJson(String json) {
++		if(json != null) {
++			try {
++				DtoMessage messageJson = JSONUtils.toBean(json, DtoMessage.class);
++				return messageJson;
++			} catch (Exception e) {
++				e.printStackTrace();
++				return null;
++			}
++			
++		}else {
++			return null;
++		}
++	}
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/publish/DeadLetterPublishService.java b/src/main/java/com/xgb/demoRabbitmq/publish/DeadLetterPublishService.java
+new file mode 100644
+index 0000000..d087b52
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/publish/DeadLetterPublishService.java
+@@ -0,0 +1,17 @@
++package com.xgb.demoRabbitmq.publish;
++
++import org.springframework.amqp.rabbit.core.RabbitTemplate;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++@Service("deadLetterPublishService")
++public class DeadLetterPublishService {
++	
++	@Autowired
++	private RabbitTemplate rmqpTemplate;
++    
++    public void send(String routingKey, Object message) {  
++    	rmqpTemplate.convertAndSend(routingKey, message);
++    }  
++    
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/publish/PublishService.java b/src/main/java/com/xgb/demoRabbitmq/publish/PublishService.java
+new file mode 100644
+index 0000000..d84bcf4
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/publish/PublishService.java
+@@ -0,0 +1,16 @@
++package com.xgb.demoRabbitmq.publish;
++
++import org.springframework.amqp.core.AmqpTemplate;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++@Service("publishService")
++public class PublishService {
++	
++    @Autowired  
++    private AmqpTemplate amqpTemplate; 
++    
++    public void send(String exchange, String routingKey, Object message) {  
++    	amqpTemplate.convertAndSend(exchange, routingKey, message);
++    }  
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/publish/RabbitTemplatePublishService.java b/src/main/java/com/xgb/demoRabbitmq/publish/RabbitTemplatePublishService.java
+new file mode 100644
+index 0000000..37577e1
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/publish/RabbitTemplatePublishService.java
+@@ -0,0 +1,31 @@
++package com.xgb.demoRabbitmq.publish;
++
++import java.util.UUID;
++
++import org.springframework.amqp.core.Message;
++import org.springframework.amqp.core.MessageBuilder;
++import org.springframework.amqp.core.MessageProperties;
++import org.springframework.amqp.rabbit.core.RabbitTemplate;
++import org.springframework.amqp.rabbit.support.CorrelationData;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++@Service("rabbitTemplatePublishService")
++public class RabbitTemplatePublishService {
++	
++	@Autowired
++	private RabbitTemplate rmqpTemplate;
++
++	public void send(String exchange, String routingKey, Object obj) {
++		String msgId = UUID.randomUUID().toString();
++		Message message = MessageBuilder.withBody(obj.toString().getBytes())
++				.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN)
++				.setCorrelationId(msgId).build();
++		CorrelationData date = new CorrelationData(msgId);
++		
++		MessageProperties messageProperties = message.getMessageProperties();
++		messageProperties.setExpiration("100000");
++		// TODO 将 msgId 与 message 的关系保存起来,例如放到缓存中
++		rmqpTemplate.send(exchange, routingKey, message, date);
++	}
++}
+diff --git a/src/main/java/com/xgb/demoRabbitmq/test/AmqpConfig.java b/src/main/java/com/xgb/demoRabbitmq/test/AmqpConfig.java
+new file mode 100644
+index 0000000..b0b7ed2
+--- /dev/null
++++ b/src/main/java/com/xgb/demoRabbitmq/test/AmqpConfig.java
+@@ -0,0 +1,101 @@
++package com.xgb.demoRabbitmq.test;
++import org.springframework.amqp.core.AcknowledgeMode;  
++import org.springframework.amqp.core.Binding;  
++import org.springframework.amqp.core.BindingBuilder;  
++import org.springframework.amqp.core.DirectExchange;  
++import org.springframework.amqp.core.Message;  
++import org.springframework.amqp.core.Queue;  
++import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;  
++import org.springframework.amqp.rabbit.connection.ConnectionFactory;  
++import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;  
++import org.springframework.amqp.rabbit.core.RabbitTemplate;  
++import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;  
++import org.springframework.beans.factory.config.ConfigurableBeanFactory;  
++import org.springframework.context.annotation.Bean;  
++import org.springframework.context.annotation.Configuration;  
++import org.springframework.context.annotation.Scope;  
++  
++import com.rabbitmq.client.Channel;  
++  
++/**  
++ * Qmqp Rabbitmq  
++ *   
++ * http://docs.spring.io/spring-amqp/docs/1.4.5.RELEASE/reference/html/  
++ *   
++ * @author lkl  
++ * @version $Id: AmqpConfig.java, v 0.1 2015年11月01日 下午2:05:37 lkl Exp $  
++ */  
++  
++@Configuration  
++public class AmqpConfig {  
++  
++    public static final String EXCHANGE   = "spring-boot-exchange";  
++    public static final String ROUTINGKEY = "spring-boot-routingKey";  
++  
++    @Bean  
++    public ConnectionFactory connectionFactory() {  
++        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();  
++        connectionFactory.setAddresses("120.55.49.68");  
++        connectionFactory.setUsername("root");  
++        connectionFactory.setPassword("root");  
++        connectionFactory.setVirtualHost("/");  
++        connectionFactory.setPublisherConfirms(true); //必须要设置  
++        return connectionFactory;  
++    }  
++  
++    @Bean  
++    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)  
++    //必须是prototype类型  
++    public RabbitTemplate rabbitTemplate() {  
++        RabbitTemplate template = new RabbitTemplate(connectionFactory());  
++        return template;  
++    }  
++  
++    /**  
++     * 针对消费者配置  
++     * 1. 设置交换机类型  
++     * 2. 将队列绑定到交换机  
++     *   
++     *   
++        FanoutExchange: 将消息分发到所有的绑定队列，无routingkey的概念  
++        HeadersExchange ：通过添加属性key-value匹配  
++        DirectExchange:按照routingkey分发到指定队列  
++        TopicExchange:多关键字匹配  
++     */  
++    @Bean  
++    public DirectExchange defaultExchange() {  
++        return new DirectExchange(EXCHANGE);  
++    }  
++  
++    @Bean  
++    public Queue queue() {  
++        return new Queue("spring-boot-queue", true); //队列持久  
++  
++    }  
++  
++    @Bean  
++    public Binding binding() {  
++        return BindingBuilder.bind(queue()).to(defaultExchange()).with(AmqpConfig.ROUTINGKEY);  
++    }  
++  
++    @Bean  
++    public SimpleMessageListenerContainer messageContainer() {  
++        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory());  
++        container.setQueues(queue());  
++        container.setExposeListenerChannel(true);  
++        container.setMaxConcurrentConsumers(1);  
++        container.setConcurrentConsumers(1);  
++        container.setAcknowledgeMode(AcknowledgeMode.MANUAL); //设置确认模式手工确认  
++        container.setMessageListener(new ChannelAwareMessageListener() {  
++  
++            @Override  
++            public void onMessage(Message message, Channel channel) throws Exception {  
++                byte[] body = message.getBody();  
++                System.out.println("receive msg : " + new String(body));  
++                channel.basicAck(message.getMessageProperties().getDeliveryTag(), false); //确认消息成功消费  
++            }  
++        });  
++        return container;  
++    }  
++  
++}  
+\ No newline at end of file
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+new file mode 100644
+index 0000000..5228af9
+--- /dev/null
++++ b/src/main/resources/application.properties
+@@ -0,0 +1,10 @@
++server.port=80
++
++# RABBIT (RabbitProperties)
++spring.rabbitmq.host=120.55.49.68
++spring.rabbitmq.port=5672
++spring.rabbitmq.username=root
++spring.rabbitmq.password=root
++spring.rabbitmq.virtual-host=/
++spring.rabbitmq.cache.channel.size= 2
++spring.rabbitmq.cache.connection.size= 2
+\ No newline at end of file
+diff --git a/src/test/java/com/xgb/demoRabbitmq/DemoRabbitmqApplicationTests.java b/src/test/java/com/xgb/demoRabbitmq/DemoRabbitmqApplicationTests.java
+new file mode 100644
+index 0000000..27979bc
+--- /dev/null
++++ b/src/test/java/com/xgb/demoRabbitmq/DemoRabbitmqApplicationTests.java
+@@ -0,0 +1,16 @@
++package com.xgb.demoRabbitmq;
++
++import org.junit.Test;
++import org.junit.runner.RunWith;
++import org.springframework.boot.test.context.SpringBootTest;
++import org.springframework.test.context.junit4.SpringRunner;
++
++@RunWith(SpringRunner.class)
++@SpringBootTest
++public class DemoRabbitmqApplicationTests {
++
++	@Test
++	public void contextLoads() {
++	}
++
++}
